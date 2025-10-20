@@ -954,6 +954,7 @@
     "screenshot": "screenshot/screenshot_large.jpg",
     "tags": ["core","testing"],
     "variants": {
+      "glTF": "NodePerformanceTest.gltf",
       "glTF-Binary": "NodePerformanceTest.glb"
     }
   },
@@ -994,6 +995,7 @@
     "screenshot": "screenshot/screenshot_large.jpg",
     "tags": ["test"],
     "variants": {
+      "glTF": "PlaysetLightTest.gltf",
       "glTF-Binary": "PlaysetLightTest.glb"
     }
   },
