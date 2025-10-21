@@ -837,6 +837,16 @@
     }
   },
   {
+    "label": "Light Visiblity test for KHR_node_visibility",
+    "name": "LightVisibility",
+    "screenshot": "screenshot/screenshot_animated.webp",
+    "tags": ["testing"],
+    "variants": {
+      "glTF": "LightVisibility.gltf",
+      "glTF-Binary": "LightVisibility.glb"
+    }
+  },
+  {
     "label": "Lamp with Punctual Lights",
     "name": "LightsPunctualLamp",
     "screenshot": "screenshot/screenshot.png",
