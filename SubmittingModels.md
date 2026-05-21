@@ -80,7 +80,6 @@ To contribute a model, open a pull request with a new subdirectory containing th
 
 1. Metadata
     1. All metadata is stored in `metadata.json`. It contains various information about the model.
-    1. There is an [experimental HTML application](util/CreateJson.html) to assist in the creation of the Metadata file
     1. The Metadata file may be generated manually.
     1. The Metadata file will be automatically upgrade if needed during system upgrades.
     1. See **Example Metadata File** (below) for details
@@ -95,7 +94,7 @@ Each asset requires detailed information about the asset. The information includ
 
 An asset may have multiple copyrights and/or credits. For example, if Acme, Inc. created a model rocket and Wyle E Coyote animated it; there would be two copyrights, one for the model and one for the animation.
 
-Assets to be included in the Sample Asset repository must have a license that allows Khronos to publish the asset and allow others to use the asset in public. Khronos recommends use of a permissive license like [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/) or even [Creative Commons 1.0 Universal Public Domain Dedication ](http://creativecommons.org/publicdomain/zero/1.0/). Assets with semi-restrictive licenses may be included in the repository provided arrangements are made prior to the Pull Request being posted.
+Assets to be included in the Sample Asset repository must have a license that allows Khronos to publish the asset and allow others to use the asset in public. Khronos recommends use of a permissive license like [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/) or even [Creative Commons 1.0 Universal Public Domain Dedication](http://creativecommons.org/publicdomain/zero/1.0/). Assets with semi-restrictive licenses may be included in the repository provided arrangements are made prior to the Pull Request being posted.
 
 The system will attempt to list the copyrights with the oldest one first. Some manual adjustment may be necessary.
 
@@ -118,16 +117,19 @@ All assets in the repository are assigned tags by the asset submitter and potent
 
 The metadata file is always called metadata.json and is located in the model root directory (not the root directory of the repo). It specifies the necessary metadata of the model including its name, ownership, artist, license, and tags. The current version of the JSON structure is below. If you are unsure of the details, set the version number to less than the current and the system will automatically upgrade the file.
 
-~~~
+```json
 {
     "version" : 2,
     "legal" : [
         {
+            "license" : "",
+            "year" : "",
             "artist" : "",
             "owner" : "",
-            "year" : "",
-            "license" : "",
-            "what" : ""
+            "what" : "",
+
+            "text": "",
+            "licenseUrl": ""
         }
       ],
     "tags" : [],
@@ -137,26 +139,22 @@ The metadata file is always called metadata.json and is located in the model roo
     "summary" : "",
     "createReadme" : false
 }
-~~~
+```
 
 The _legal_ structure contains information about each owner of the model. It comprises of the following elements:
 
+* _license_: The license assigned by the owner. 
+  * This should usually be a valid [SPDX](https://spdx.org/licenses/) license identifier (listed in the table below)
+  * Other licenses may be used with agreement prior to submitting the Pull Request. In this case, the `text` field must be a short description of the license, and the `licenseUrl` must be given, and point to a copy of the license text in the `LICENSES/` directory of this repository.
+* _year_: The year the work was created or modified.
+* _owner_: The owner of the model for this operation. This is may be the _artist_ or the organization responsible for the _artist_. If the work is in the Public Domain, then the _owner_ may be **Public**.
 * _what_: What was done to get the model to this stage. Standard terminology includes _Everything_ or _Creation_ for the initial work; _Mesh_ for the geometry; _Texture_ for all materials; _Animation_ for movement; and _Conversion_ for converting to glTF.
 * _artist_: The name of the artist(s) who performed the _what_.
-* _owner_: The owner of the model for this operation. This is may be the _artist_ or the organization responsible for the _artist_. If the work is in the Public Domain, then the _owner_ may be **Public**.
-* _year_: The year the work was created or modified.
-* _license_: The license assigned by the owner. Standard license names should be used and are listed in the table below.
-  * Only Creative Common licenses are listed here. These are generally the most suitable for use with creative content for this repository.
-  * _Other_ licences may be used with agreement prior to submitting the Pull Request.
 
 
 |  |  |  |  |
 |--|--|--|--|
 | Abbreviation | License Name | License | Legal 
-| CC BY | Attribution-ShareAlike | [Deed](https://creativecommons.org/licenses/by/4.0/) | [Code](https://creativecommons.org/licenses/by/4.0/legalcode)
-| CC BY-SA | Attribution-ShareAlike | [Deed](https://creativecommons.org/licenses/by-sa/4.0/) | [Code](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
-| CC BY-ND | Attribution-NoDerivatives | [Deed](https://creativecommons.org/licenses/by-nd/4.0/) | [Code](https://creativecommons.org/licenses/by-nd/4.0/legalcode)
-| CC BY-NC | Attribution-NonCommercial | [Deed](https://creativecommons.org/licenses/by-nc/4.0/) | [Code](https://creativecommons.org/licenses/by-nc/4.0/legalcode)
-| CC BY-NC-SA | Attribution-NonCommercial-ShareAlike | [Deed](https://creativecommons.org/licenses/by-nc-sa/4.0/) | [Code](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
-| CC BY-NC-ND | Attribution-NonCommercial-NoDerivatives | [Deed](https://creativecommons.org/licenses/by-nc-nd/4.0/) | [Code](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode)
-| CC0 | No Rights Reserved | [Deed](https://creativecommons.org/publicdomain/zero/1.0/) | [Code](https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+| CC0-1.0 | No Rights Reserved | [Deed](https://creativecommons.org/publicdomain/zero/1.0/) | [Code](https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+| CC-BY-4.0 | Attribution-ShareAlike | [Deed](https://creativecommons.org/licenses/by/4.0/) | [Code](https://creativecommons.org/licenses/by/4.0/legalcode)
+| CC-BY-NC-4.0 | Attribution-NonCommercial | [Deed](https://creativecommons.org/licenses/by-nc/4.0/) | [Code](https://creativecommons.org/licenses/by-nc/4.0/legalcode)
