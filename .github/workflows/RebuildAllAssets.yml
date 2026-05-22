@@ -17,20 +17,19 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v4
 
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: latest
-
-    - name: Execute PHP script to update Repo
+    - name: Run npm install
       run: |
-        php util/model.php --no-warn --update --process-repo
+        npm install
+
+    - name: Run npm update
+      run: |
+        npm run update
 
     - name: Commit changes to a new branch 
       uses: EndBug/add-and-commit@v9
       with:
         # Defaults for most parameters are used
-        # Action assiged to "github_actor" (used by default with 'default_author')
+        # Action assigned to "github_actor" (used by default with 'default_author')
         # This action merges all changes into 'main'
 
         # The way the action should handle pathspec errors from the add and remove commands. Three options are available:
