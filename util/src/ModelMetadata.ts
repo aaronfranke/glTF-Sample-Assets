@@ -292,7 +292,7 @@ export class ModelMetadata {
     // Footer
     md.push("---");
     md.push("");
-    md.push(`### Copyright\n\n&copy; 2023, The Khronos Group.`);
+    md.push(`### Copyright\n\n&copy; ${new Date().getFullYear()}, The Khronos Group.`);
     md.push("");
 
     const license = Licenses.LICENSE["CC-BY-4.0"];
@@ -410,11 +410,12 @@ export class ModelMetadata {
     dep.push(
       "Upstream-Contact: https://GitHub.com/KhronosGroup/glTF-Sample-Models/"
     );
-    dep.push("Copyright: 2017-2023 Khronos Group");
+    const currentYear = new Date().getFullYear();
+    dep.push(`Copyright: 2017-${currentYear} Khronos Group`);
     dep.push("License: CC-BY-4.0");
     dep.push("");
     dep.push("Files: *");
-    dep.push("Copyright: 2017-2023 Khronos Group");
+    dep.push(`Copyright: 2017-${currentYear} Khronos Group`);
     dep.push("License: CC-BY-4.0");
     dep.push("");
 
