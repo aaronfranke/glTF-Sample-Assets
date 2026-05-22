@@ -298,13 +298,14 @@ export class Models {
       "SCEA",
       "LicenseRef-Adobe-Stock",
       "LicenseRef-CRYENGINE-Agreement",
+      "LicenseRef-3DRT-Testing",
     ];
 
     // Update the 'license' property to be the canonical SPDX
     // license identifier
     for (const legal of legals) {
       const license = legal.license;
-      
+
       // Don't update the known custom licenses
       if (customLicenses.includes(license)) {
         //console.log(`License ${license} is a known custom license`);
@@ -314,7 +315,7 @@ export class Models {
       if (knownLicense === undefined) {
         //console.log(`License ${license} is not known`);
 
-        // Check if there is a mapping from the license name to 
+        // Check if there is a mapping from the license name to
         // the canonical one, and update it if this is the case
         const newLicenseName = legacyLicenseNames[license];
         if (newLicenseName === undefined) {

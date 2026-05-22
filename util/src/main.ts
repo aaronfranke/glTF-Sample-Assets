@@ -47,7 +47,7 @@ const commandLineOptions: CommandLineOption[] = [
   {
     long: "dry-run",
     short: "d",
-    text: 'Option to perform all checks and updates, but not write out actual files',
+    text: "Option to perform all checks and updates, but not write out actual files",
   },
   {
     long: "process-repo",

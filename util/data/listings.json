@@ -30,6 +30,11 @@
     "summary": "Models that are used for testing various features or capabilities of importers, viewers, or converters."
   },
   {
+    "file": "Models-pbrtest.md",
+    "tags": ["pbrtest"],
+    "summary": "Models that are used for illustrating the effect of PBR properties."
+  },
+  {
     "file": "Models-video.md",
     "tags": ["video"],
     "summary": "Models used in any glTF video tutorial."

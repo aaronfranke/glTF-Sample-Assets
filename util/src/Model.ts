@@ -153,6 +153,15 @@ export class Model {
   }
 
   /**
+   * Returns all used extensions
+   *
+   * @returns The extensions
+   */
+  getExtensionsUsed(): string[] {
+    return this.extensionsUsed;
+  }
+
+  /**
    * Returns the metadata that was given in the constructor
    *
    * @returns The metadata
@@ -573,9 +582,9 @@ export class Model {
     md.push(
       '* This file and all other metadocumentation files including "metadata.json":'
     );
-    const link = Licenses.LICENSE["CC-BY-4.0"]["link"];
+    const license = Licenses.LICENSE["CC-BY-4.0"];
     md.push(
-      `  * [Creative Commons Attribution 4.0 International]("${link}") [SPDX license identifier: "CC-BY-4.0"]`
+      `  * [${license.text}]("${license.link}") [SPDX license identifier: "CC-BY-4.0"]`
     );
 
     // Footer
