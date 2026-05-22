@@ -45,6 +45,11 @@ const commandLineOptions: CommandLineOption[] = [
     text: 'Update model folders. It has no effect "check" fails. Will set "check".',
   },
   {
+    long: "dry-run",
+    short: "d",
+    text: 'Option to perform all checks and updates, but not write out actual files',
+  },
+  {
     long: "process-repo",
     short: "p",
     text: 'Create repo-wide files. Will set "check".',

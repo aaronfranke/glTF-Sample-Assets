@@ -34,6 +34,11 @@ export class ModelMetadata {
   static verbose = false;
 
   /**
+   * Whether to omit actually writing any file
+   */
+  static dryRun = false;
+
+  /**
    * Process the specified models with the given options.
    *
    * @param options - The options
@@ -41,6 +46,7 @@ export class ModelMetadata {
    */
   static process(options: Record<string, boolean>, inputModelNames: string[]) {
     ModelMetadata.verbose = options["verbose"] === true;
+    ModelMetadata.dryRun = options["dry-run"] === true;
     const check = options["check"] === true;
     const update = options["update"] === true;
 
@@ -106,8 +112,13 @@ export class ModelMetadata {
         models
       );
       const listingFileName = `${baseDirectory}/${listing.file}`;
-      console.log(`Writing ${listingFileName}`);
-      fs.writeFileSync(listingFileName, listingReadme);
+
+      if (ModelMetadata.dryRun) {
+        console.log(`Skip writing ${listingFileName} due to dry-run`);
+      } else {
+        console.log(`Writing ${listingFileName}`);
+        fs.writeFileSync(listingFileName, listingReadme);
+      }
     }
   }
 
@@ -258,9 +269,14 @@ export class ModelMetadata {
   private static createModelIndex(baseDirectory: string, models: Model[]) {
     const modelIndexJson = ModelMetadata.createModelIndexJson(models);
     const indexFileName = `${baseDirectory}/model-index.json`;
-    console.log(`Writing ${indexFileName}`);
     const modelIndexJsonString = JSON.stringify(modelIndexJson, null, 2);
-    fs.writeFileSync(indexFileName, modelIndexJsonString);
+
+    if (ModelMetadata.dryRun) {
+      console.log(`Skip writing ${indexFileName} due to dry-run`);
+    } else {
+      console.log(`Writing ${indexFileName}`);
+      fs.writeFileSync(indexFileName, modelIndexJsonString);
+    }
   }
 
   /**
@@ -311,8 +327,13 @@ export class ModelMetadata {
   private static createReuseLicense(baseDirectory: string, models: Model[]) {
     const dep = ModelMetadata.createDep5(baseDirectory, models);
     const depFileName = `./.reuse/dep5`;
-    console.log(`Writing ${depFileName}`);
-    fs.writeFileSync(depFileName, dep);
+
+    if (ModelMetadata.dryRun) {
+      console.log(`Skip writing ${depFileName} due to dry-run`);
+    } else {
+      console.log(`Writing ${depFileName}`);
+      fs.writeFileSync(depFileName, dep);
+    }
   }
 
   /**
@@ -412,15 +433,33 @@ export class ModelMetadata {
 
     const metadata = model.getMetadata();
     const metadataString = JSON.stringify(metadata, null, 2);
-    fs.writeFileSync(`${dir}/metadata.json`, metadataString, "utf8");
+    const metadataFileName = `${dir}/metadata.json`;
+    if (ModelMetadata.dryRun) {
+      console.log(`Skip writing ${metadataFileName} due to dry-run`);
+    } else {
+      console.log(`Writing ${metadataFileName}`);
+      fs.writeFileSync(metadataFileName, metadataString, "utf8");
+    }
 
     const readmeMd = model.createReadmeMarkdown(baseDirectory);
     if (readmeMd !== undefined) {
-      fs.writeFileSync(`${dir}/README.md`, readmeMd, "utf8");
+      const readmeFileName = `${dir}/README.md`;
+      if (ModelMetadata.dryRun) {
+        console.log(`Skip writing ${readmeFileName} due to dry-run`);
+      } else {
+        console.log(`Writing ${readmeFileName}`);
+        fs.writeFileSync(readmeFileName, readmeMd, "utf8");
+      }
     }
 
     const licenseMd = model.createLicenseMarkdown();
-    fs.writeFileSync(`${dir}/LICENSE.md`, licenseMd, "utf8");
+    const licenseFileName = `${dir}/LICENSE.md`;
+    if (ModelMetadata.dryRun) {
+      console.log(`Skip writing ${licenseFileName} due to dry-run`);
+    } else {
+      console.log(`Writing ${licenseFileName}`);
+      fs.writeFileSync(licenseFileName, licenseMd, "utf8");
+    }
   }
 
   /**

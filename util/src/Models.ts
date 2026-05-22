@@ -277,24 +277,45 @@ export class Models {
     const knownLicenses = Licenses.LICENSE;
     const legals = metadataJson.legal ?? [];
 
+    const legacyLicenseNames: Record<string, string> = {
+      CC0: "CC0-1.0",
+      "CC-BY": "CC-BY-4.0",
+      "CC-BY-NC": "CC-BY-NC-4.0",
+      "LicenseRef-CC-BY-TM": "CC-BY-4.0",
+      "CC-BY 4.0": "CC-BY-4.0",
+      "CC-BY International 4.0": "CC-BY-4.0",
+      "Public Domain / CC0": "CC0-1.0",
+      "Creative Commons, Attribution-NonCommercial-ShareAlike 4.0 International":
+        "CC-BY-NC-SA-4.0",
+    };
+
+    const customLicenses = [
+      "LicenseRef-LegalMark-UX3D",
+      "LicenseRef-LegalMark-Khronos",
+      "LicenseRef-Poser-EULA",
+      "LicenseRef-LegalMark-Cesium",
+      "LicenseRef-LegalMark-DGG",
+      "SCEA",
+      "LicenseRef-Adobe-Stock",
+      "LicenseRef-CRYENGINE-Agreement",
+    ];
+
     // Update the 'license' property to be the canonical SPDX
     // license identifier
     for (const legal of legals) {
       const license = legal.license;
+      
+      // Don't update the known custom licenses
+      if (customLicenses.includes(license)) {
+        //console.log(`License ${license} is a known custom license`);
+        continue;
+      }
       const knownLicense = knownLicenses[license];
       if (knownLicense === undefined) {
-        console.log(`License ${license} is not known`);
-        const legacyLicenseNames: Record<string, string> = {
-          CC0: "CC0-1.0",
-          "CC-BY": "CC-BY-4.0",
-          "CC-BY-NC": "CC-BY-NC-4.0",
-          "LicenseRef-CC-BY-TM": "CC-BY-4.0",
-          "CC-BY 4.0": "CC-BY-4.0",
-          "CC-BY International 4.0": "CC-BY-4.0",
-          "Public Domain / CC0": "CC0-1.0",
-          "Creative Commons, Attribution-NonCommercial-ShareAlike 4.0 International":
-            "CC-BY-NC-4.0",
-        };
+        //console.log(`License ${license} is not known`);
+
+        // Check if there is a mapping from the license name to 
+        // the canonical one, and update it if this is the case
         const newLicenseName = legacyLicenseNames[license];
         if (newLicenseName === undefined) {
           console.log(`License ${license} is not known, and no new name found`);
