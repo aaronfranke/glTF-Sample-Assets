@@ -408,13 +408,6 @@ export class ModelMetadata {
     const text = [];
 
     text.push(`version = 1`);
-    text.push(`SPDX-PackageName = "glTF 2.0 Model Repo"`);
-    text.push(
-      `SPDX-PackageSupplier = "https://GitHub.com/KhronosGroup/glTF-Sample-Models/"`
-    );
-    text.push(
-      `SPDX-PackageDownloadLocation = "glTF 2.0 models from various sources collected into a Repo"`
-    );
     text.push(``);
 
     text.push(`[[annotations]]`);
