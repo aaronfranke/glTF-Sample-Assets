@@ -257,13 +257,13 @@ export class Model {
   /**
    * Returns the base URL for the model.
    *
-   * This is getModelPath, URL-escaped
+   * This is getModelPath, URI-encoded
    *
    * @returns The URL
    */
   getModelUrl() {
     const p = this.getModelPath();
-    const result = p.replace(/ /g, "%20");
+    const result = encodeURI(p);
     return result;
   }
 
@@ -285,13 +285,13 @@ export class Model {
   /**
    * Returns the URL of the screenshot.
    *
-   * This is getScreenshotPath, URL-encoded
+   * This is getScreenshotPath, URI-encoded
    *
    * @returns The screenshot URL
    */
   getScreenshotUrl() {
     const p = this.getScreenshotPath();
-    const result = p.replace(/ /g, "%20");
+    const result = encodeURI(p);
     return result;
   }
 
@@ -307,13 +307,13 @@ export class Model {
   /**
    * Returns the screenshot name that was read from the metadata JSON
    *
-   * This is getScreenshotName, URL-encoded
+   * This is getScreenshotName, URI-encoded
    *
    * @returns The screenshot name
    */
   private getScreenshotNameUrl() {
     const p = this.getScreenshotName();
-    const result = p.replace(/ /g, "%20");
+    const result = encodeURI(p);
     return result;
   }
 
@@ -335,13 +335,13 @@ export class Model {
   /**
    * Returns the URL of the ".glb"" file for the "glTF-Binary" variant.
    *
-   * This is getGlbPath, URL-encoded
+   * This is getGlbPath, URI-encoded
    *
    * @returns The GLB URL
    */
   getGlbUrl(): string {
     const p = this.getGlbPath();
-    const result = p.replace(/ /g, "%20");
+    const result = encodeURI(p);
     return result;
   }
 
@@ -367,13 +367,13 @@ export class Model {
   /**
    * Returns the URL of the ".gltf" file for the "glTF" variant.
    *
-   * This is getGltfPath, URL-encoded
+   * This is getGltfPath, URI-encoded
    *
    * @returns The glTF URL
    */
   getGltfUrl(): string {
     const p = this.getGltfPath();
-    const result = p.replace(/ /g, "%20");
+    const result = encodeURI(p);
     return result;
   }
 
@@ -537,13 +537,13 @@ export class Model {
     const metadata = this.metadata;
     for (const element of metadata.legal) {
       const url = element.licenseUrl ?? "";
-      const urlReplaced = url.replace(/ /g, "%20");
+      const urlEncoded = encodeURI(url);
       const year = element.year;
       const owner = element.owner;
       const artist = element.artist;
       const what = element.what;
       const text = element.text;
-      credits.push(`&copy; ${year}, ${owner}. [${text}](${urlReplaced})`);
+      credits.push(`&copy; ${year}, ${owner}. [${text}](${urlEncoded})`);
       credits.push(` - ${artist} for ${what}`);
     }
     return credits;
@@ -595,7 +595,7 @@ export class Model {
       if (licenseUrl === undefined) {
         licenseUrl = "";
       }
-      licenseUrl.replace(/ /g, "%20");
+      licenseUrl = encodeURI(licenseUrl);
       let spdxInfo = "";
       if (legal.spdx !== undefined) {
         spdxInfo = ` [SPDX license identifier: "${legal.spdx}"]`;
