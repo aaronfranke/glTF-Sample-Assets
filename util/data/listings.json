@@ -7,7 +7,7 @@
   {
     "file": "Models-core.md",
     "tags": ["core"],
-    "summary": "Models that only use the core glTF V2.0 features and capabilities."
+    "summary": "Models that only use the core glTF 2.0 features and capabilities."
   },
   {
     "file": "Models-extension.md",

@@ -21,7 +21,7 @@ export class ModelMetadata {
    * The URL of the "raw" glTF-Sample-Assets repo
    */
   static readonly UrlModelRepoRaw =
-    "https://raw.GithubUserContent.com/KhronosGroup/glTF-Sample-Assets/main";
+    "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main";
 
   /**
    * The directory relative to root containing all models
