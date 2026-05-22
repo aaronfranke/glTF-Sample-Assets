@@ -104,7 +104,13 @@ export class Models {
     }
 
     // Actually create the model from the valid Metadata
-    const model = new Model(baseDirectory, modelName, metadata);
+    const model = new Model(modelName, metadata);
+    model.initialize(baseDirectory, issues);
+    if (issues.errors.length > 0) {
+      return undefined;
+    }
+
+    // Return it if there have not been any errors
     return model;
   }
 

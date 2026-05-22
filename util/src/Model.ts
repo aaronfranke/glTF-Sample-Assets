@@ -4,6 +4,7 @@ import { Licenses } from "./Licenses";
 import { Metadata } from "./Metadata";
 import { Listings } from "./Listings";
 import { ModelMetadata } from "./ModelMetadata";
+import { Issues } from "./Issues";
 
 /**
  * Representation of a 'Model' in the context of the creation of
@@ -53,18 +54,12 @@ export class Model {
   /**
    * Creates a new instance
    *
-   * @param baseDirectory - The base directory ("./Models")
    * @param directoryName - The directory name of the model
    * @param metadata - The validated Metadata from the metadata.json
    */
-  constructor(
-    baseDirectory: string,
-    directoryName: string,
-    metadata: Metadata
-  ) {
+  constructor(directoryName: string, metadata: Metadata) {
     this.directoryName = directoryName;
     this.metadata = metadata;
-    this.initialize(baseDirectory);
   }
 
   /**
@@ -74,12 +69,12 @@ export class Model {
    *
    * @param baseDirectory - The base directory ("./Models")
    */
-  private initialize(baseDirectory: string) {
+  initialize(baseDirectory: string, issues: Issues) {
     const glbPath = this.getGlbPath();
     const fullGlbPath = `${baseDirectory}/${glbPath}`;
     this._hasGlb = fs.existsSync(fullGlbPath);
 
-    this.variants = this.findVariants(baseDirectory);
+    this.variants = this.findVariants(baseDirectory, issues);
     const extensions = this.readExtensionsInfo(baseDirectory);
     this.extensionsUsed = extensions.used;
     this.extensionsRequired = extensions.required;
@@ -92,11 +87,18 @@ export class Model {
    * to the respective file, e.g. "AnimatedTriangle.glb".
    *
    * @param baseDirectory - The base directory ("./Models")
+   * @param issues - Used for tracking errors and warnings
    * @returns The variants
    */
-  private findVariants(baseDirectory: string): Record<string, string> {
+  private findVariants(
+    baseDirectory: string,
+    issues: Issues
+  ): Record<string, string> {
     const variants: Record<string, string> = {};
     const modelDirectory = `${baseDirectory}/${this.getModelPath()}`;
+
+    const errors = issues.errors;
+    const warnings = issues.warnings;
 
     const directoryEntries = fs.readdirSync(modelDirectory, {
       withFileTypes: true,
@@ -106,15 +108,34 @@ export class Model {
       if (directoryEntry.isDirectory() && name.startsWith("glTF")) {
         const directory = `${modelDirectory}/${name}`;
         const files = fs.readdirSync(directory);
+        let foundFile = false;
         for (const file of files) {
-          if (file.endsWith(".glb")) {
+          const fileLowercase = file.toLowerCase();
+          if (fileLowercase.endsWith(".glb")) {
+            if (!file.endsWith(".glb")) {
+              warnings.push(
+                `File does not have an all-lowercase extension: ${file}`
+              );
+            }
             variants[name] = file;
+            foundFile = true;
             break;
           }
-          if (file.endsWith(".gltf")) {
+          if (fileLowercase.endsWith(".gltf")) {
+            if (!file.endsWith(".gltf")) {
+              warnings.push(
+                `File does not have an all-lowercase extension: ${file}`
+              );
+            }
             variants[name] = file;
+            foundFile = true;
             break;
           }
+        }
+        if (!foundFile) {
+          errors.push(
+            `Did not find a ".gltf" or ".glb" file for "${name}" variant in ${this.getModelPath()}`
+          );
         }
       }
     }
