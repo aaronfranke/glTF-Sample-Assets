@@ -472,7 +472,9 @@ export class Model {
       md.push("");
     } else {
       if (ModelMetadata.verbose) {
-        console.log(`No README.body.md found for ${this.getName()}`);
+        console.log(
+          `Note: No README.body.md found for ${this.getName()}, inserting defaults`
+        );
       }
       md.push("## Screenshot");
       md.push("");

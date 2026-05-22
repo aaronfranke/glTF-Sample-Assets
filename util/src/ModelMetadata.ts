@@ -472,7 +472,7 @@ export class ModelMetadata {
    * @param model - The model
    */
   private static updateModelFiles(baseDirectory: string, model: Model) {
-    ModelMetadata.logVerbose("Update files for " + model.getName());
+    ModelMetadata.logVerbose(`Update model files for ${model.getName()}...`);
 
     const dir = `${baseDirectory}/${model.getModelPath()}`;
 
@@ -481,10 +481,10 @@ export class ModelMetadata {
     const metadataFileName = `${dir}/metadata.json`;
     if (ModelMetadata.dryRun) {
       ModelMetadata.logVerbose(
-        `Skip writing ${metadataFileName} due to dry-run`
+        `  Skip writing ${metadataFileName} due to dry-run`
       );
     } else {
-      ModelMetadata.logVerbose(`Writing ${metadataFileName}`);
+      ModelMetadata.logVerbose(`  Writing ${metadataFileName}`);
       fs.writeFileSync(metadataFileName, metadataString, "utf8");
     }
 
@@ -493,10 +493,10 @@ export class ModelMetadata {
       const readmeFileName = `${dir}/README.md`;
       if (ModelMetadata.dryRun) {
         ModelMetadata.logVerbose(
-          `Skip writing ${readmeFileName} due to dry-run`
+          `  Skip writing ${readmeFileName} due to dry-run`
         );
       } else {
-        ModelMetadata.logVerbose(`Writing ${readmeFileName}`);
+        ModelMetadata.logVerbose(`  Writing ${readmeFileName}`);
         fs.writeFileSync(readmeFileName, readmeMd, "utf8");
       }
     }
@@ -505,12 +505,14 @@ export class ModelMetadata {
     const licenseFileName = `${dir}/LICENSE.md`;
     if (ModelMetadata.dryRun) {
       ModelMetadata.logVerbose(
-        `Skip writing ${licenseFileName} due to dry-run`
+        `  Skip writing ${licenseFileName} due to dry-run`
       );
     } else {
-      ModelMetadata.logVerbose(`Writing ${licenseFileName}`);
+      ModelMetadata.logVerbose(`  Writing ${licenseFileName}`);
       fs.writeFileSync(licenseFileName, licenseMd, "utf8");
     }
+
+    ModelMetadata.logVerbose(`Update model files for ${model.getName()} DONE`);
   }
 
   /**
@@ -520,7 +522,7 @@ export class ModelMetadata {
    */
   private static logVerbose(...data: any[]) {
     if (ModelMetadata.verbose) {
-      console.log(data);
+      console.log(...data);
     }
   }
 
