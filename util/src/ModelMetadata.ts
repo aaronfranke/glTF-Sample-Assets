@@ -404,9 +404,9 @@ export class ModelMetadata {
       "Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/"
     );
     dep.push(
-      "Source: glTF V2.0 models from various sources collected into a Repo"
+      "Source: glTF 2.0 models from various sources collected into a Repo"
     );
-    dep.push("Upstream-Name: glTF V2.0 Model Repo");
+    dep.push("Upstream-Name: glTF 2.0 Model Repo");
     dep.push(
       "Upstream-Contact: https://GitHub.com/KhronosGroup/glTF-Sample-Models/"
     );
