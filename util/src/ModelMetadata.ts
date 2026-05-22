@@ -292,7 +292,9 @@ export class ModelMetadata {
     // Footer
     md.push("---");
     md.push("");
-    md.push(`### Copyright\n\n&copy; ${new Date().getFullYear()}, The Khronos Group.`);
+    md.push(
+      `### Copyright\n\n&copy; ${new Date().getFullYear()}, The Khronos Group.`
+    );
     md.push("");
 
     const license = Licenses.LICENSE["CC-BY-4.0"];
@@ -369,83 +371,93 @@ export class ModelMetadata {
   }
 
   /**
-   * Create the "./.reuse/dep5" file that aggregates the license information
+   * Create the "./REUSE.toml" file that aggregates the license information
    * for all models.
    *
    * @param baseDirectory - The base directory ("./Models")
    * @param models - The models
    */
   private static createReuseLicense(baseDirectory: string, models: Model[]) {
-    const dep = ModelMetadata.createDep5(baseDirectory, models);
-    const depFileName = `./.reuse/dep5`;
+    const reuseText = ModelMetadata.createReuseToml(baseDirectory, models);
+    const reuseFileName = `./REUSE.toml`;
 
     if (ModelMetadata.dryRun) {
-      ModelMetadata.logVerbose(`Skip writing ${depFileName} due to dry-run`);
+      ModelMetadata.logVerbose(`Skip writing ${reuseFileName} due to dry-run`);
     } else {
-      ModelMetadata.logVerbose(`Writing ${depFileName}`);
-      fs.writeFileSync(depFileName, dep);
+      ModelMetadata.logVerbose(`Writing ${reuseFileName}`);
+      fs.writeFileSync(reuseFileName, reuseText, "utf-8");
     }
   }
 
   /**
-   * Create the contents of the "./.reuse/dep5" file that aggregates
+   * Create the contents of the "./REUSE.toml" file that aggregates
    * the license information for all models.
    *
    * @param baseDirectory - The base directory ("./Models")
    * @param models - The models
    * @returns The contents of the file
    */
-  private static createDep5(baseDirectory: string, models: Model[]): string {
-    ModelMetadata.logVerbose(`Creating dep5 for ${models.length} models...`);
+  private static createReuseToml(
+    baseDirectory: string,
+    models: Model[]
+  ): string {
+    ModelMetadata.logVerbose(
+      `Creating REUSE.toml for ${models.length} models...`
+    );
 
-    const dep = [];
+    const text = [];
 
-    dep.push(
-      "Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/"
+    text.push(`version = 1`);
+    text.push(`SPDX-PackageName = "glTF 2.0 Model Repo"`);
+    text.push(
+      `SPDX-PackageSupplier = "https://GitHub.com/KhronosGroup/glTF-Sample-Models/"`
     );
-    dep.push(
-      "Source: glTF 2.0 models from various sources collected into a Repo"
+    text.push(
+      `SPDX-PackageDownloadLocation = "glTF 2.0 models from various sources collected into a Repo"`
     );
-    dep.push("Upstream-Name: glTF 2.0 Model Repo");
-    dep.push(
-      "Upstream-Contact: https://GitHub.com/KhronosGroup/glTF-Sample-Models/"
-    );
+    text.push(``);
+
+    text.push(`[[annotations]]`);
+    text.push(`path = "**"`);
+    text.push(`precedence = "aggregate"`);
     const currentYear = new Date().getFullYear();
-    dep.push(`Copyright: 2017-${currentYear} Khronos Group`);
-    dep.push("License: CC-BY-4.0");
-    dep.push("");
-    dep.push("Files: *");
-    dep.push(`Copyright: 2017-${currentYear} Khronos Group`);
-    dep.push("License: CC-BY-4.0");
-    dep.push("");
+    text.push(`SPDX-FileCopyrightText = "2017-${currentYear} Khronos Group"`);
+    text.push(`SPDX-License-Identifier = "CC-BY-4.0"`);
+    text.push("");
 
     for (const model of models) {
       const files = `${baseDirectory}/${model.getModelPath()}`;
-      dep.push(`Files: ${files.substring(2)}/*`);
-
-      const copyright: string[] = [];
-      const license: string[] = [];
-      let licenseLast = "";
+      text.push(`[[annotations]]`);
+      text.push(`path = "${files.substring(2)}/*"`);
+      text.push(`precedence = "aggregate"`);
 
       const legals = model.getLegals();
+
+      const copyrightsSet = new Set<string>();
+      const licensesSet = new Set<string>();
       for (const legal of legals) {
         const year = legal.year;
         const owner = legal.owner;
-        copyright.push(`${year} ${owner}`);
-        if (legal.license !== licenseLast) {
-          license.push(legal.license);
-          licenseLast = legal.license;
-        }
+        copyrightsSet.add(`${year} ${owner}`);
+        licensesSet.add(legal.license);
       }
-
-      dep.push(`Copyright: \n ${copyright.join("\n ")}`);
-      dep.push(`License: ${license.join(" AND ")}`);
-      dep.push("");
+      const copyrights = [...copyrightsSet];
+      if (copyrights.length === 1) {
+        text.push(`SPDX-FileCopyrightText = "${copyrights[0]}"`);
+      } else {
+        const copyrightsString = copyrights.map((e) => `"${e}"`).join(", ");
+        text.push(`SPDX-FileCopyrightText = [ ${copyrightsString} ]`);
+      }
+      const licenses = [...licensesSet];
+      const licensesString = licenses.join(" AND ");
+      text.push(`SPDX-License-Identifier = "${licensesString}"`);
+      text.push("");
     }
 
-    const result = dep.join("\n");
-
-    ModelMetadata.logVerbose(`Creating dep5 for ${models.length} models DONE`);
+    const result = text.join("\n");
+    ModelMetadata.logVerbose(
+      `Creating REUSE.toml for ${models.length} models DONE`
+    );
     return result;
   }
 
