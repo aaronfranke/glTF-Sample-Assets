@@ -436,30 +436,17 @@ export class Model {
     md.push("");
 
     // Information about the used and required extensions
-    if (this.extensionsUsed.length > 0 && this.extensionsRequired.length > 0) {
-      md.push("## Extensions");
-      md.push("");
-      md.push("### Required");
+    if (this.extensionsRequired.length > 0) {
+      md.push("## Extensions Required");
       md.push("");
       md.push(this.extensionsRequired.map((e) => "* " + e).join("\n"));
       md.push("");
-      md.push("### Used");
+    }
+    if (this.extensionsUsed.length > 0) {
+      md.push("## Extensions Used");
       md.push("");
       md.push(this.extensionsUsed.map((e) => "* " + e).join("\n"));
       md.push("");
-    } else {
-      if (this.extensionsRequired.length > 0) {
-        md.push("## Extensions Required");
-        md.push("");
-        md.push(this.extensionsRequired.map((e) => "* " + e).join("\n"));
-        md.push("");
-      }
-      if (this.extensionsUsed.length > 0) {
-        md.push("## Extensions Used");
-        md.push("");
-        md.push(this.extensionsUsed.map((e) => "* " + e).join("\n"));
-        md.push("");
-      }
     }
 
     // The summary from the metadata JSON
