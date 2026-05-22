@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc --build --verbose --force",
     "prettier": "prettier --write \"**/*\"",
-    "check": "ts-node ./src/main.ts --process-repo --check",
-    "update": "ts-node ./src/main.ts --process-repo --update --dry-run"
+    "check": "ts-node ./src/main.ts --process-repo --check --verbose",
+    "update": "ts-node ./src/main.ts --process-repo --update --verbose"
   }
 }
