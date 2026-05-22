@@ -467,7 +467,7 @@ export class Model {
     if (this.hasGlb) {
       const fullGlbUrl = `${
         ModelMetadata.UrlModelRepoRaw
-      }/${baseDirectory}/${this.getGlbPath()}`;
+      }/${baseDirectory}/${this.getGlbUrl()}`;
       md.push(`* [Download GLB](${fullGlbUrl})`);
     }
     md.push(`* [Model Directory](./)`);
