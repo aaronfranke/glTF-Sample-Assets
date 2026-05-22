@@ -13,9 +13,11 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Run npm install
+      working-directory: ./util
       run: |
         npm install
 
     - name: Run npm check
+      working-directory: ./util
       run: |
         npm run check
