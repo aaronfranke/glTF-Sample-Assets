@@ -173,7 +173,7 @@ export class ModelMetadata {
         );
       } else {
         ModelMetadata.logVerbose(`Writing ${listingFileName}`);
-        fs.writeFileSync(listingFileName, listingReadme);
+        fs.writeFileSync(listingFileName, listingReadme, "utf-8");
       }
     }
   }
@@ -328,7 +328,7 @@ export class ModelMetadata {
       ModelMetadata.logVerbose(`Skip writing ${indexFileName} due to dry-run`);
     } else {
       ModelMetadata.logVerbose(`Writing ${indexFileName}`);
-      fs.writeFileSync(indexFileName, modelIndexJsonString);
+      fs.writeFileSync(indexFileName, modelIndexJsonString, "utf-8");
     }
   }
 
