@@ -5,14 +5,9 @@ import { ModelMetadata } from "./ModelMetadata";
  */
 type CommandLineOption = {
   /**
-   * The long form, prefixed by two dashes
+   * The argument, prefixed by two dashes
    */
-  long: string;
-
-  /**
-   * The short form, a single letter prefixed by one dash
-   */
-  short: string;
+  argument: string;
 
   /**
    * A description, to be shown in the help output
@@ -25,34 +20,28 @@ type CommandLineOption = {
  */
 const commandLineOptions: CommandLineOption[] = [
   {
-    long: "help",
-    short: "h",
+    argument: "help",
     text: "Displays this information.",
   },
   {
-    long: "verbose",
-    short: "v",
+    argument: "verbose",
     text: "Dump intermediate and debug information.",
   },
   {
-    long: "check",
-    short: "c",
+    argument: "check",
     text: "Checks consistency of the asset directory files.",
   },
   {
-    long: "update",
-    short: "u",
-    text: 'Update model folders. It has no effect "check" fails. Will set "check".',
+    argument: "update",
+    text: 'Update model folders. It will set "check", and not perform any updates if the check fails.',
   },
   {
-    long: "dry-run",
-    short: "d",
+    argument: "dry-run",
     text: "Option to perform all checks and updates, but not write out actual files",
   },
   {
-    long: "process-repo",
-    short: "p",
-    text: 'Create repo-wide files. Will set "check".',
+    argument: "process-repo",
+    text: 'Processes all models that are found in the "./Models" subdirectory',
   },
 ];
 
@@ -61,7 +50,7 @@ const commandLineOptions: CommandLineOption[] = [
  */
 type ParsedCommandLine = {
   /**
-   * A mapping from the 'long' form of an option to whether it was enabled
+   * A mapping from the 'argument' of an option to whether it was enabled
    */
   options: Record<string, boolean>;
 
@@ -86,19 +75,17 @@ function parseCommandLine(argv: string[]): ParsedCommandLine {
     modelNames: [],
   };
 
-  //console.log("argv ", argv);
-
   // Note: 'argv[0]' and 'argv[1]' are the script names!
   for (let i = 2; i < argv.length; i++) {
-    const arg = argv[i];
+    const arg = argv[i]!;
     let wasOption = false;
     for (const option of commandLineOptions) {
-      if (arg === `--${option.long}` || arg === `-${option.short}`) {
-        result.options[option.long] = true;
+      if (arg === `--${option.argument}`) {
+        result.options[option.argument] = true;
         wasOption = true;
       }
     }
-    if (!wasOption && arg !== undefined) {
+    if (!wasOption) {
       result.modelNames.push(arg);
     }
   }
@@ -133,7 +120,7 @@ if (!parsedCommandLine.options["process-repo"]) {
 if (shouldPrintHelp) {
   console.log(`main.ts [--options] [asset]`);
   for (const option of commandLineOptions) {
-    console.log(` --${option.long.padEnd(16)} ${option.text}`);
+    console.log(` --${option.argument.padEnd(16)} ${option.text}`);
   }
   console.log(
     ` ${"[asset]".padEnd(
