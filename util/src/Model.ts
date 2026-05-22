@@ -254,7 +254,7 @@ export class Model {
    *
    * @returns The screenshot path
    */
-  getScreenshotPath() {
+  private getScreenshotPath() {
     const base = this.getModelPath();
     const screenshot = this.metadata.screenshot;
     const screenshotPath = `${base}/${screenshot}`;
@@ -290,7 +290,7 @@ export class Model {
    *
    * @returns The screenshot name
    */
-  getScreenshotNameUrl() {
+  private getScreenshotNameUrl() {
     const p = this.getScreenshotName();
     const result = p.replace(/ /g, "%20");
     return result;
@@ -305,7 +305,7 @@ export class Model {
    *
    * @returns The GLB path
    */
-  getGlbPath(): string {
+  private getGlbPath(): string {
     const name = this.getModelPath();
     const glbPath = `${name}/glTF-Binary/${name}.glb`;
     return glbPath;
@@ -328,7 +328,7 @@ export class Model {
    * Whether this model has an associated GLB file as part
    * of a "glTF-Binary" variant.
    */
-  public get hasGlb(): boolean {
+  get hasGlb(): boolean {
     return this._hasGlb;
   }
 
@@ -337,7 +337,7 @@ export class Model {
    *
    * @returns The glTF path
    */
-  getGltfPath(): string {
+  private getGltfPath(): string {
     const name = this.getModelPath();
     const gltfPath = `${name}/glTF/${name}.gltf`;
     return gltfPath;
@@ -471,7 +471,9 @@ export class Model {
       md.push(fs.readFileSync(readmeBodyFile, "utf8").toString());
       md.push("");
     } else {
-      console.log(`Warning: No README.body.md found for ${this.getName()}`);
+      if (ModelMetadata.verbose) {
+        console.log(`No README.body.md found for ${this.getName()}`);
+      }
       md.push("## Screenshot");
       md.push("");
       md.push(`![screenshot](${this.getScreenshotNameUrl()})`);

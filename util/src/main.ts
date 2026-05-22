@@ -143,8 +143,16 @@ if (shouldPrintHelp) {
   process.exit(0);
 }
 
-console.log("Parsed command line: ", parsedCommandLine);
+const options = parsedCommandLine.options;
+const verbose = options["verbose"] === true;
+if (verbose) {
+  console.log("Parsed command line: ", parsedCommandLine);
+}
 
 // Go to the repo root, and run the processing
 process.chdir("..");
-ModelMetadata.process(parsedCommandLine.options, parsedCommandLine.modelNames);
+const code = ModelMetadata.process(
+  parsedCommandLine.options,
+  parsedCommandLine.modelNames
+);
+process.exit(code);

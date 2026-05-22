@@ -90,7 +90,6 @@ export class Models {
     // Validate the metadata JSON, and bail out for errors
     Models.validateMetadataJson(metadataJson, issues);
     if (issues.errors.length > 0) {
-      ModelMetadata.printIssues(modelName, issues);
       return undefined;
     }
 
@@ -100,9 +99,6 @@ export class Models {
     // Validate the metadata (e.g. presence of screenshots
     // and legal information), and bail out for errors
     Models.validateMetadata(modelPath, metadata, issues);
-    if (issues.errors.length > 0 || issues.warnings.length > 0) {
-      ModelMetadata.printIssues(modelName, issues);
-    }
     if (issues.errors.length > 0) {
       return undefined;
     }
@@ -299,6 +295,7 @@ export class Models {
       "LicenseRef-Adobe-Stock",
       "LicenseRef-CRYENGINE-Agreement",
       "LicenseRef-3DRT-Testing",
+      "LicenseRef-Stanford-Graphics",
     ];
 
     // Update the 'license' property to be the canonical SPDX
@@ -319,17 +316,21 @@ export class Models {
         // the canonical one, and update it if this is the case
         const newLicenseName = legacyLicenseNames[license];
         if (newLicenseName === undefined) {
-          console.log(`License ${license} is not known, and no new name found`);
+          console.log(
+            `Warning: License ${license} is not known, and no new name found`
+          );
         } else {
           const newKnownLicense = knownLicenses[newLicenseName];
           if (newKnownLicense === undefined) {
             console.log(
-              `License ${license} is not known, and no valid new name found`
+              `Warning: License ${license} is not known, and no valid new name found`
             );
           } else {
-            console.log(
-              `License ${license} is not known, updating to ${newLicenseName}`
-            );
+            if (ModelMetadata.verbose) {
+              console.log(
+                `License ${license} is not known, updating to ${newLicenseName}`
+              );
+            }
             legal.license = newLicenseName;
           }
         }

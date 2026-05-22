@@ -43,8 +43,12 @@ export class ModelMetadata {
    *
    * @param options - The options
    * @param inputModelNames - The input model (subdirectory) names
+   * @returns An error code, 0 if there is no error
    */
-  static process(options: Record<string, boolean>, inputModelNames: string[]) {
+  static process(
+    options: Record<string, boolean>,
+    inputModelNames: string[]
+  ): number {
     ModelMetadata.verbose = options["verbose"] === true;
     ModelMetadata.dryRun = options["dry-run"] === true;
     const check = options["check"] === true;
@@ -74,7 +78,7 @@ export class ModelMetadata {
       }
     }
     if (anyHasErrors) {
-      return;
+      return 1;
     }
 
     //ModelMetadata.DEBUG_preprocessModels(models);
@@ -82,7 +86,7 @@ export class ModelMetadata {
     // Creating the listing and overview files can only be done
     // when all models are processed
     if (inputModelNames.length !== 0) {
-      return;
+      return 0;
     }
 
     ModelMetadata.createListings(baseDirectory, models);
@@ -92,6 +96,7 @@ export class ModelMetadata {
     if (update) {
       ModelMetadata.updateAllModelsFiles(baseDirectory, models);
     }
+    return 0;
   }
 
   // Internal, preliminary tests
@@ -105,7 +110,7 @@ export class ModelMetadata {
       "testing",
       "written",
       "issues",
-      "pbrtest"
+      "pbrtest",
     ];
 
     const allExtensions = new Set<string>();
@@ -184,7 +189,7 @@ export class ModelMetadata {
    * @param models - The models
    * @returns The markdown
    */
-  static createListingMarkdown(
+  private static createListingMarkdown(
     baseDirectory: string,
     listing: Listing,
     models: Model[]
@@ -333,7 +338,7 @@ export class ModelMetadata {
    * @param models - The models
    * @returns The model index JSON object
    */
-  static createModelIndexJson(models: Model[]): any {
+  private static createModelIndexJson(models: Model[]): any {
     ModelMetadata.logVerbose(
       `Creating model index for ${models.length} models...`
     );
@@ -451,7 +456,7 @@ export class ModelMetadata {
    * @param baseDirectory - The base directory ("./Models")
    * @param models - The models
    */
-  static updateAllModelsFiles(baseDirectory: string, models: Model[]) {
+  private static updateAllModelsFiles(baseDirectory: string, models: Model[]) {
     for (const model of models) {
       ModelMetadata.updateModelFiles(baseDirectory, model);
     }
@@ -525,7 +530,7 @@ export class ModelMetadata {
    * @param modelName - The name of the model
    * @param issues - The issues
    */
-  static printIssues(modelName: string, issues: Issues) {
+  private static printIssues(modelName: string, issues: Issues) {
     const errors = issues.errors;
     const warnings = issues.warnings;
     if (errors.length > 0 || warnings.length > 0) {
