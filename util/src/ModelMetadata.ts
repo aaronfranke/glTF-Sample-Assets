@@ -115,14 +115,21 @@ export class ModelMetadata {
 
     const allExtensions = new Set<string>();
     const allTags = new Set<String>();
+    const allVariants = new Set<String>();
     for (const model of models) {
       const extensionsUsed = model.getExtensionsUsed();
+      for (const e of extensionsUsed) {
+        allExtensions.add(e);
+      }
+
       const tags = model.getTags();
       for (const t of tags) {
         allTags.add(t);
       }
-      for (const e of extensionsUsed) {
-        allExtensions.add(e);
+
+      const variants = model.getVariants();
+      for (const v of Object.keys(variants)) {
+        allVariants.add(v);
       }
 
       if (tags.includes("core") && extensionsUsed.length > 0) {
@@ -143,6 +150,10 @@ export class ModelMetadata {
     console.log("All tags:");
     for (const t of allTags) {
       console.log(t);
+    }
+    console.log("All variants:");
+    for (const v of allVariants) {
+      console.log(v);
     }
   }
 
