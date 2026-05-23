@@ -589,8 +589,7 @@ export class ModelMetadata {
       const modelPath = `${directory}/${file}`;
       if (fs.lstatSync(modelPath).isDirectory()) {
         subdirectoryNames.push(file);
-      }
-      7;
+      };
     }
     subdirectoryNames.sort();
     return subdirectoryNames;
