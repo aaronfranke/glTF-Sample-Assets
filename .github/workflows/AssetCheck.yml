@@ -17,7 +17,20 @@ jobs:
       run: |
         npm install
 
+    # The 'check' will verify the contents of the 'metadata.json'
+    # file of all assets (including newly added ones).
     - name: Run npm check
       working-directory: ./util
       run: |
         npm run check
+
+    # The 'update' will create the REUSE.toml file, which is
+    # required for the subsequent REUSE compliance check.
+    - name: Run npm update
+      working-directory: ./util
+      run: |
+        npm run update
+
+    - name: REUSE Compliance Check
+      uses: actions/checkout@v5
+      uses: fsfe/reuse-action@v6
