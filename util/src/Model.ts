@@ -168,8 +168,10 @@ export class Model {
     const gltfPath = this.getGltfPath();
     const fullPath = `${baseDirectory}/${gltfPath}`;
     const glTF = ModelMetadata.readJson(fullPath);
-    extensions.used = glTF.extensionsUsed ?? [];
-    extensions.required = glTF.extensionsRequired ?? [];
+    if (glTF !== undefined) {
+      extensions.used = glTF.extensionsUsed ?? [];
+      extensions.required = glTF.extensionsRequired ?? [];
+    }
     return extensions;
   }
 
