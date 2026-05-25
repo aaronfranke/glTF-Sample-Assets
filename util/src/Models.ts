@@ -83,9 +83,6 @@ export class Models {
     if (metadataJson.tags === undefined) {
       metadataJson.tags = [];
     }
-    if (metadataJson.createReadme === undefined) {
-      metadataJson.createReadme = true;
-    }
 
     // Validate the metadata JSON, and bail out for errors
     Models.validateMetadataJson(metadataJson, issues);

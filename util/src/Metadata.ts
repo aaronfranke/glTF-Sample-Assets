@@ -10,5 +10,4 @@ export type Metadata = {
   screenshot: string;
   name: string;
   summary: string;
-  createReadme: boolean;
 };

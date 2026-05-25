@@ -506,16 +506,14 @@ export class ModelMetadata {
     }
 
     const readmeMd = model.createReadmeMarkdown(baseDirectory);
-    if (readmeMd !== undefined) {
-      const readmeFileName = `${dir}/README.md`;
-      if (ModelMetadata.dryRun) {
-        ModelMetadata.logVerbose(
-          `  Skip writing ${readmeFileName} due to dry-run`
-        );
-      } else {
-        ModelMetadata.logVerbose(`  Writing ${readmeFileName}`);
-        fs.writeFileSync(readmeFileName, readmeMd, "utf8");
-      }
+    const readmeFileName = `${dir}/README.md`;
+    if (ModelMetadata.dryRun) {
+      ModelMetadata.logVerbose(
+        `  Skip writing ${readmeFileName} due to dry-run`
+      );
+    } else {
+      ModelMetadata.logVerbose(`  Writing ${readmeFileName}`);
+      fs.writeFileSync(readmeFileName, readmeMd, "utf8");
     }
 
     const licenseMd = model.createLicenseMarkdown();

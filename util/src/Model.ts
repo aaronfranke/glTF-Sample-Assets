@@ -394,21 +394,10 @@ export class Model {
    * Creates the markdown string that goes into the "README.md" of
    * the model.
    *
-   * This may be 'undefined' if the metadata JSON declared the
-   * 'createReadme: false' flag, indicating that the README.md
-   * was created manually and should not be auto-generated.
-   *
    * @param baseDirectory - The base directory ("./Models")
    * @returns The markdown
    */
-  createReadmeMarkdown(baseDirectory: string): string | undefined {
-    if (this.metadata.createReadme !== true) {
-      if (ModelMetadata.verbose) {
-        console.log(`No readme creation requested for '${this.getName()}'`);
-      }
-      return undefined;
-    }
-
+  createReadmeMarkdown(baseDirectory: string): string {
     // Header
     const md: string[] = [];
     md.push(`# ${this.getName()}`);
@@ -488,10 +477,6 @@ export class Model {
       md.push("## Screenshot");
       md.push("");
       md.push(`![screenshot](${this.getScreenshotNameUrl()})`);
-      md.push("");
-      md.push("## Description");
-      md.push("");
-      md.push("_None provided._");
       md.push("");
     }
 

@@ -33,7 +33,6 @@ Each submission must include a `metadata.json` file in the subdirectory of the m
   "summary": "",
   "screenshot": "screenshot/screenshot.jpg",
   "tags": ["core"],
-  "createReadme": true,
   "legal": [
     {
       "license": "",
@@ -54,7 +53,6 @@ The meaning of the fields:
 - `summary`: A short summary of the model, to be displayed in tables and overviews. It should usually be a single sentence of short paragraph, and _not_ a full description of the model. For example, a summary might be `"A simple triangle with a rotation animation"`.
 - `screenshot`: The path to a screenshot that should be displayed for the model, suitable for being displayed in an overview table. 
 - `tags`: An array of tags that are used for classifying the model. See the [Tags](#tags) section for the set of tags that are currently supported.
-- `createReadme`: Whether a `README.md` file should be generated automatically for the model. This should usually be `true`. 
 - `legal`: An array with at least one entry, summarizing the copyright information of the model. Details are given below.
 
 
@@ -82,7 +80,6 @@ For the case that (parts of) the model should be published with a license that i
 {
   "license": "",  
   "text": "",
-  "licenseUrl": "",
   "year": "",
   "artist": "",
   "what": "",
@@ -91,9 +88,11 @@ For the case that (parts of) the model should be published with a license that i
 ```
 
 - `license`: An identifier for the license, e.g. `"LicenseRef-LegalMark-Khronos"`
-- `licenseUrl`: A link to the license text in the `LICENSES/` directory of the repository. The license text must be a file with the naming pattern _`<license>`_`.txt`. For example, such a license URL could be `"../../LICENSES/LicenseRef-LegalMark-Khronos.txt"`.
 - `text`: A short description or name of the license and what it refers to
 - The remaining fields have the same meaning as for standard licenses (defined in the previous section)
+
+Custom licenses must be stored as text files in the `LICENSES/` directory of the repository. The license text must be a file with the naming pattern _`<license>`_`.txt`. For example, such a license file could be `./LICENSES/LicenseRef-LegalMark-Khronos.txt`.
+
 
 #### The Screenshot
 
@@ -102,7 +101,7 @@ Each model must have at least one associated screenshot. This should be a small 
 
 #### The README body
 
-Each model should have a file that is called `README.body.md`. This file should contain additional details of the model. The contents of this file will automatically be inserted into the main `README.md` of the model. This `README.body.md` can contain additional subsections and text explaining the purpose and structure of the model. This file may also refer to additional screenshots that may be included in the `screenshot` directory of the model. 
+Each model should have a file that is called `README.body.md`. This file should contain additional details of the model. The contents of this file will automatically be inserted into the main `README.md` of the model. This `README.body.md` can contain additional subsections and text explaining the purpose and structure of the model. The lowest indentation level for the sections in this file should be `##`. This file may also refer to additional screenshots that may be included in the `screenshot` directory of the model. 
 
 Note: This file is optional, but authors are encouraged to add such a file, at least containing a short description of the model and its purpose.
 
