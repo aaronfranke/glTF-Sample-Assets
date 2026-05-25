@@ -293,7 +293,7 @@ export class ModelMetadata {
 
       // Credits
       row.push(`Credit:<br>`);
-      const credits = modelMeta.createCreditsMarkdownLines();
+      const credits = modelMeta.createCreditsMarkdownLines(true);
       row.push(`${credits.join("<br>")}`);
       row.push(` |`);
 

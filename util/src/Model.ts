@@ -498,7 +498,7 @@ export class Model {
     // Legal information
     md.push("## Legal");
     md.push("");
-    const credits = this.createCreditsMarkdownLines();
+    const credits = this.createCreditsMarkdownLines(false);
     md.push(credits.join("\n\n"));
     md.push("");
 
@@ -517,14 +517,27 @@ export class Model {
    * - The copyright year and owner (and license link)
    * - Information about the artist and content
    *
+   * The 'inListing' indicates whether these credits are going
+   * into one of the 'listing' files that are stored directly
+   * in the `./Models` directory. In this case, relative URLs
+   * of the 'metadata.legal' structure that go up TWO levels
+   * from the model directory ("../../") have to be modified
+   * to only go up ONE level ("../");
+   *
+   * @param inListing - Whether this is going into a listing file
    * @returns The lines
    */
-  createCreditsMarkdownLines(): string[] {
+  createCreditsMarkdownLines(inListing: boolean): string[] {
     const credits: string[] = [];
 
     const metadata = this.metadata;
     for (const element of metadata.legal) {
-      const url = element.licenseUrl ?? "";
+      let url = element.licenseUrl ?? "";
+      if (inListing) {
+        if (url.startsWith("../../")) {
+          url = url.substring(3);
+        }
+      }
       const urlEncoded = encodeURI(url);
       const year = element.year;
       const owner = element.owner;
@@ -579,16 +592,13 @@ export class Model {
     // The "text" (short name) of the licenses, linking to the
     // license URL
     for (const legal of this.metadata.legal) {
-      let licenseUrl = legal.licenseUrl;
-      if (licenseUrl === undefined) {
-        licenseUrl = "";
-      }
-      licenseUrl = encodeURI(licenseUrl);
+      const url = legal.licenseUrl ?? "";
+      const urlEncoded = encodeURI(url);
       let spdxInfo = "";
       if (legal.spdx !== undefined) {
         spdxInfo = ` [SPDX license identifier: "${legal.spdx}"]`;
       }
-      md.push(`  * [${legal.text}](${licenseUrl})${spdxInfo}`);
+      md.push(`  * [${legal.text}](${urlEncoded})${spdxInfo}`);
     }
 
     // Meta-license

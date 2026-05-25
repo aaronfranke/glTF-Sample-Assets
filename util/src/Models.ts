@@ -239,9 +239,7 @@ export class Models {
 
   /**
    * Validate the given legal object, checking for the consistency
-   * of the license identifier and the remaining information
-   * (e.g. checking that the "licenseUrl" is given for non-SPDX
-   * licenses)
+   * of custom licenses and their required license file
    *
    * @param modelPath - The path that contains the model, e.g.
    * "./Models/AnimatedTriangle".
@@ -260,13 +258,18 @@ export class Models {
       if (legal.text === undefined) {
         errors.push(`License ${license} is not known - the 'text' is required`);
       }
-      if (legal.licenseUrl === undefined) {
+
+      // Check for the presence of the license file
+      const expectedLicenseFile = `./LICENSES/${license}.txt`;
+      if (!fs.existsSync(expectedLicenseFile)) {
         errors.push(
-          `License ${license} is not known - the 'licenseUrl' is required`
+          `License ${license} requires a file '${expectedLicenseFile}' to be present`
         );
+      } else {
+        // The actual license URL has to go up TWO levels,
+        // because it refers to the model directory
+        legal.licenseUrl = `../../LICENSES/${license}.txt`;
       }
-      // TODO Could try to check if license is found under
-      // the 'licenseUrl', but referring to ROOT OF REPO!!!
     }
   }
 
