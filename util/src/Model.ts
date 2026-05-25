@@ -120,19 +120,26 @@ export class Model {
       // Search for ".gltf" or ".glb" files in other cases.
       const expectedExtension = knownVariantFileNameExtensions[variantName];
       if (expectedExtension === undefined) {
-        const fileName = Model.findAnyVariantFileName(variantDirectory, issues);
-        if (fileName === undefined) {
-          errors.push(
-            `Did not find a ".gltf" or ".glb" file for "${variantName}" variant in ${this.getModelPath()}`
-          );
+        const fileNameGlb = Model.findVariantFileName(variantDirectory, ".glb");
+        if (fileNameGlb !== undefined) {
+          variants[variantName] = fileNameGlb;
         } else {
-          variants[variantName] = fileName;
+          const fileNameGltf = Model.findVariantFileName(
+            variantDirectory,
+            ".gltf"
+          );
+          if (fileNameGltf !== undefined) {
+            variants[variantName] = fileNameGltf;
+          } else {
+            errors.push(
+              `Did not find a ".gltf" or ".glb" file for "${variantName}" variant in ${this.getModelPath()}`
+            );
+          }
         }
       } else {
-        const fileName = Model.findKnownVariantFileName(
+        const fileName = Model.findVariantFileName(
           variantDirectory,
-          expectedExtension,
-          issues
+          expectedExtension
         );
         if (fileName === undefined) {
           errors.push(
@@ -155,58 +162,16 @@ export class Model {
   /**
    * Find the first file with the given extension in the given directory.
    *
-   * The check will be performed case-insensitively, but report a warning
-   * when the case does not match the given expected extension.
-   *
    * @param variantDirectory - The directory
-   * @param issues - Receives a warning if the file name is not all-lowercase
    * @returns The file name, if it is found
    */
-  private static findKnownVariantFileName(
+  private static findVariantFileName(
     variantDirectory: string,
-    expectedExtension: string,
-    issues: Issues
+    expectedExtension: string
   ): string | undefined {
-    const warnings = issues.warnings;
     const files = fs.readdirSync(variantDirectory);
     for (const file of files) {
-      const fileLowercase = file.toLowerCase();
-      if (fileLowercase.endsWith(expectedExtension)) {
-        if (!file.endsWith(expectedExtension)) {
-          warnings.push(
-            `File does not have an all-lowercase extension: ${file}`
-          );
-        }
-        return file;
-      }
-    }
-    return undefined;
-  }
-
-  /**
-   * Find the first ".gltf" or ".glb" file in the given directory.
-   *
-   * The check will be performed case-insensitively, but report a warning
-   * when the extension is not all-lowercase.
-   *
-   * @param variantDirectory - The directory
-   * @param issues - Receives a warning if the file name is not all-lowercase
-   * @returns The file name, if it is found
-   */
-  private static findAnyVariantFileName(
-    variantDirectory: string,
-    issues: Issues
-  ): string | undefined {
-    const warnings = issues.warnings;
-    const files = fs.readdirSync(variantDirectory);
-    for (const file of files) {
-      const fileLowercase = file.toLowerCase();
-      if (fileLowercase.endsWith(".glb") || fileLowercase.endsWith(".gltf")) {
-        if (!file.endsWith(".glb") && !file.endsWith(".gltf")) {
-          warnings.push(
-            `File does not have an all-lowercase extension: ${file}`
-          );
-        }
+      if (file.endsWith(expectedExtension)) {
         return file;
       }
     }
