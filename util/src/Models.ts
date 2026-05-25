@@ -117,10 +117,7 @@ export class Models {
    * @param metadataJson - The metadata JSON
    * @param issues Will be filled with any issues
    */
-  private static validateMetadataJson(
-    metadataJson: any,
-    issues: { errors: string[]; warnings: string[] }
-  ) {
+  private static validateMetadataJson(metadataJson: any, issues: Issues) {
     const errors = issues.errors;
 
     const version = metadataJson.version;
@@ -155,8 +152,7 @@ export class Models {
     if (legal === undefined || !Array.isArray(legal)) {
       errors.push("The 'legal' must be an array");
     } else {
-      for (let i = 0; i < legal.length; i++) {
-        const element = legal[i];
+      for (const element of legal) {
         Models.validateLegalJson(element, issues);
       }
     }
@@ -169,10 +165,7 @@ export class Models {
    * @param legalJson - The legal JSON
    * @param issues Will be filled with any issues
    */
-  private static validateLegalJson(
-    legalJson: any,
-    issues: { errors: string[]; warnings: string[] }
-  ) {
+  private static validateLegalJson(legalJson: any, issues: Issues) {
     const errors = issues.errors;
     if (legalJson === undefined) {
       errors.push(`Invalid 'legal' element`);
@@ -218,7 +211,7 @@ export class Models {
   private static validateMetadata(
     modelPath: string,
     metadata: Metadata,
-    issues: { errors: string[]; warnings: string[] }
+    issues: Issues
   ) {
     const errors = issues.errors;
 
@@ -243,10 +236,7 @@ export class Models {
    * @param metadata The metadata
    * @param issues Will be filled with any issues
    */
-  private static validateLegal(
-    legal: Legal,
-    issues: { errors: string[]; warnings: string[] }
-  ) {
+  private static validateLegal(legal: Legal, issues: Issues) {
     const errors = issues.errors;
     const knownLicenses = Licenses.LICENSE;
     const license = legal.license;
