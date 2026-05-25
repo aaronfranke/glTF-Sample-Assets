@@ -29,7 +29,7 @@ export type Legal = {
   // This is required for custom (non-SPDX) licenses
   text: string | undefined;
 
-  // These remaining fields be filled automatically:
+  // These remaining fields will be filled automatically:
 
   // For SPDX licenses, these will be the official SPDX identifier
   // and the official icon. For custom licenses, they will remain
