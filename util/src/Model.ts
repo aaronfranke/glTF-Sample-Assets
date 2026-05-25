@@ -120,8 +120,7 @@ export class Model {
             variants[name] = file;
             foundFile = true;
             break;
-          }
-          if (fileLowercase.endsWith(".gltf")) {
+          } else if (fileLowercase.endsWith(".gltf")) {
             if (!file.endsWith(".gltf")) {
               warnings.push(
                 `File does not have an all-lowercase extension: ${file}`
