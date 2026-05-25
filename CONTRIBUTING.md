@@ -4,15 +4,15 @@
 
 # Managing Models in this Repository
 
-We are actively accepting new or revised models for the Sample Asset repo. This keeps the repo active and relevant. All changes, whether they are new models or updates of existing ones, are handled as Pull Requests (PR) and must meet the same quality requirements.
+We are actively accepting new or revised models for the Sample Assets repo. This keeps the repo active and relevant. All changes, whether they are new models or updates of existing ones, are handled as Pull Requests (PR) and must meet the same quality requirements.
 
 ## Model Quality Requirements
 
 A summary of the quality requirements for models is given here. Details for submitting new models will be given in the next section.
 
-- Each model and is contained in a subdirectory of the `./Models` directory. This subdirectory contains all model variants and associated files.
+- Each model is contained in a subdirectory of the `./Models` directory. This subdirectory contains all model variants and associated files.
 - Each model must pass the [glTF-Validator](https://github.khronos.org/glTF-Validator/).
-- Each model must have an associated `README.md` markdown file that describes the model and the features of the model that make it appropriate of this repo
+- Each model must have an associated `README.md` markdown file that describes the model and the features of the model that make it appropriate for this repo
 - Each model must have an associated `metadata.json` file that includes legal information (ownership, copyright, and license) 
 - Each model must have a properly formatted screenshot
 
@@ -97,7 +97,7 @@ For the case that (parts of) the model should be published with a license that i
 
 #### The Screenshot
 
-Each model must have at least one associated screenshot. This should be a small image file that is suitable for being displayed in an overview table. The screenshot must be a PNG-, JPG, or (possibly animated) GIF file. It must be in the `screenshot` subdirectory of the model. The path to this screenshot must be given in the `screenshot` property of the `metadata.json`. Additional (larger) screenshots may be contained in the `screenshot` directory, and used in the `README.body.md` file (explained below).
+Each model must have at least one associated screenshot. This should be a small image file that is suitable for being displayed in an overview table. The screenshot must be a PNG, JPG, WEBP, or (possibly animated) GIF file. It must be in the `screenshot` subdirectory of the model. The path to this screenshot must be given in the `screenshot` property of the `metadata.json`. Additional (larger) screenshots may be contained in the `screenshot` directory, and used in the `README.body.md` file (explained below).
 
 
 #### The README body
