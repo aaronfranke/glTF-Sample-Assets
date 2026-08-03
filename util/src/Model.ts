@@ -132,7 +132,7 @@ export class Model {
             variants[variantName] = fileNameGltf;
           } else {
             errors.push(
-              `Did not find a ".gltf" or ".glb" file for "${variantName}" variant in ${this.getModelPath()}`
+              `Did not find a ".gltf" or ".glb" file (case-sensitively) for "${variantName}" variant in ${this.getModelPath()}`
             );
           }
         }
@@ -143,7 +143,7 @@ export class Model {
         );
         if (fileName === undefined) {
           errors.push(
-            `Did not find a "${expectedExtension}" file for "${variantName}" variant in ${this.getModelPath()}`
+            `Did not find a "${expectedExtension}" file (case-sensitively) for "${variantName}" variant in ${this.getModelPath()}`
           );
         } else {
           variants[variantName] = fileName;
