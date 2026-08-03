@@ -266,7 +266,7 @@ export class ModelMetadata {
       const screenshotUrl = modelMeta.getScreenshotUrl();
       const screenshotTag = `<img src="${screenshotUrl}" width="250px">`;
       row.push(
-        `[![${modelMeta.getName()}](${screenshotTag})](${modelMeta.getModelUrl()}/README.md)`
+        `<a href="${modelMeta.getModelUrl()}/README.md">${screenshotTag}</a>`
       );
       row.push("<br>");
 
