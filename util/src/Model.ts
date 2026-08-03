@@ -337,19 +337,6 @@ export class Model {
   }
 
   /**
-   * Returns the screenshot name that was read from the metadata JSON
-   *
-   * This is getScreenshotName, URI-encoded
-   *
-   * @returns The screenshot name
-   */
-  private getScreenshotNameUrl() {
-    const p = this.getScreenshotName();
-    const result = encodeURI(p);
-    return result;
-  }
-
-  /**
    * Returns the path of the ".glb"" file for the "glTF-Binary" variant.
    *
    * Note: This will return the path, even when the GLB variant
@@ -494,22 +481,11 @@ export class Model {
     md.push(`* [Model Directory](./)`);
     md.push("");
 
-    // Inline the "README.body.md"
+    // Inline the "README.body.md". The existence of this file
+    // was validated by 'Models.createModel'.
     const readmeBodyFile = `${baseDirectory}/${this.getModelPath()}/README.body.md`;
-    if (fs.existsSync(readmeBodyFile)) {
-      md.push(fs.readFileSync(readmeBodyFile, "utf8").toString());
-      md.push("");
-    } else {
-      if (ModelMetadata.verbose) {
-        console.log(
-          `Note: No README.body.md found for ${this.getName()}, inserting defaults`
-        );
-      }
-      md.push("## Screenshot");
-      md.push("");
-      md.push(`![screenshot](${this.getScreenshotNameUrl()})`);
-      md.push("");
-    }
+    md.push(fs.readFileSync(readmeBodyFile, "utf8").toString());
+    md.push("");
 
     // Legal information
     md.push("## Legal");

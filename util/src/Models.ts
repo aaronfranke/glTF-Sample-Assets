@@ -68,6 +68,12 @@ export class Models {
     const errors = issues.errors;
     const modelPath = `${baseDirectory}/${modelName}`;
 
+    const readmeBodyFile = `${modelPath}/README.body.md`;
+    if (!fs.existsSync(readmeBodyFile)) {
+      errors.push(`Model README body file not found: ${readmeBodyFile}`);
+      return undefined;
+    }
+
     // Read the raw metadata JSON
     const metadataFileName = `${modelPath}/metadata.json`;
     if (!fs.existsSync(metadataFileName)) {
