@@ -263,8 +263,10 @@ export class ModelMetadata {
       row.push("<br>");
 
       // Model screenshot, linking to README
+      const screenshotUrl = modelMeta.getScreenshotUrl();
+      const screenshotTag = `<img src="${screenshotUrl}" width="250px">`;
       row.push(
-        `[![${modelMeta.getName()}](${modelMeta.getScreenshotUrl()})](${modelMeta.getModelUrl()}/README.md)`
+        `[![${modelMeta.getName()}](${screenshotTag})](${modelMeta.getModelUrl()}/README.md)`
       );
       row.push("<br>");
 

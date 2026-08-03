@@ -14,7 +14,7 @@ A summary of the quality requirements for models is given here. Details for subm
 - Each model must pass the [glTF-Validator](https://github.khronos.org/glTF-Validator/).
 - Each model must have an associated `README.md` markdown file that describes the model and the features of the model that make it appropriate for this repo
 - Each model must have an associated `metadata.json` file that includes legal information (ownership, copyright, and license) 
-- Each model must have a properly formatted screenshot
+- Each model must have a properly formatted screenshot. For details, see the [screenshot section](#the-screenshot).
 
 ## Submitting New Models
 
@@ -96,7 +96,9 @@ Custom licenses must be stored as text files in the `LICENSES/` directory of the
 
 #### The Screenshot
 
-Each model must have at least one associated screenshot. This should be a small image file that is suitable for being displayed in an overview table. The screenshot must be a PNG, JPG, WEBP, or (possibly animated) GIF file. It must be in the `screenshot` subdirectory of the model. The path to this screenshot must be given in the `screenshot` property of the `metadata.json`. Additional (larger) screenshots may be contained in the `screenshot` directory, and used in the `README.body.md` file (explained below).
+Each model must have at least one associated screenshot. This should be a small image file that is suitable for being displayed in an overview table. The screenshot must be a PNG, JPG, WEBP, or (possibly animated) GIF file. The screenshot should have a width of roughly 150 to 500 pixels, and not be extremely elongated in one direction.
+
+The screenshot must be in the `screenshot` subdirectory of the model. The path to this screenshot must be given in the `screenshot` property of the `metadata.json`. Additional (larger) screenshots may be contained in the `screenshot` directory, and used in the `README.body.md` file (explained below).
 
 
 #### The README body
