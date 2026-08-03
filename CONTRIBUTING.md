@@ -50,7 +50,7 @@ The meaning of the fields:
 - `version`: The version for the metadata JSON format. Must be `2`
 - `name`: A name for the model that will be used to refer to be model in titles and link descriptions. This will usually resemble the name of the subdirectory that contains the model. For example, the `name` of a model that is contained in `./Models/AnimatedTriangle` may be `"Animated Triangle"`.
 - `path`: The path to the model, referring to the root of the repository. For example, `"./Models/AnimatedTriangle"`.
-- `summary`: A short summary of the model, to be displayed in tables and overviews. It should usually be a single sentence of short paragraph, and _not_ a full description of the model. For example, a summary might be `"A simple triangle with a rotation animation"`.
+- `summary`: A short summary of the model, to be displayed in tables and overviews. It should usually be a single sentence or short paragraph, and _not_ a full description of the model. For example, a summary might be `"A simple triangle with a rotation animation"`.
 - `screenshot`: The path to a screenshot that should be displayed for the model, suitable for being displayed in an overview table. 
 - `tags`: An array of tags that are used for classifying the model. See the [Tags](#tags) section for the set of tags that are currently supported.
 - `legal`: An array with at least one entry, summarizing the copyright information of the model. Details are given below.
