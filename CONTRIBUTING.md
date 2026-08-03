@@ -103,9 +103,7 @@ The screenshot must be in the `screenshot` subdirectory of the model. The path t
 
 #### The README body
 
-Each model should have a file that is called `README.body.md`. This file should contain additional details of the model. The contents of this file will automatically be inserted into the main `README.md` of the model. This `README.body.md` can contain additional subsections and text explaining the purpose and structure of the model. The lowest indentation level for the sections in this file should be `##`. This file may also refer to additional screenshots that may be included in the `screenshot` directory of the model. 
-
-Note: This file is optional, but authors are encouraged to add such a file, at least containing a short description of the model and its purpose.
+Each model must have a file that is called `README.body.md`. This file should contain additional details of the model. The contents of this file will automatically be inserted into the main `README.md` of the model. This `README.body.md` can contain additional subsections and text explaining the purpose and structure of the model. The lowest indentation level for the sections in this file should be `##`. This file may also refer to additional screenshots that may be included in the `screenshot` directory of the model. 
 
 #### The Actual Model
 
