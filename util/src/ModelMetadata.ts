@@ -81,8 +81,6 @@ export class ModelMetadata {
       return 1;
     }
 
-    //ModelMetadata.DEBUG_preprocessModels(models);
-
     // Creating the listing and overview files can only be done
     // when all models are processed
     if (inputModelNames.length !== 0) {
@@ -97,64 +95,6 @@ export class ModelMetadata {
       ModelMetadata.updateAllModelsFiles(baseDirectory, models);
     }
     return 0;
-  }
-
-  // Internal, preliminary tests
-  //@ts-ignore
-  private static DEBUG_preprocessModels(models: Model[]) {
-    const knownTags = [
-      "showcase",
-      "video",
-      "extension",
-      "core",
-      "testing",
-      "written",
-      "issues",
-      "pbrtest",
-    ];
-
-    const allExtensions = new Set<string>();
-    const allTags = new Set<String>();
-    const allVariants = new Set<String>();
-    for (const model of models) {
-      const extensionsUsed = model.getExtensionsUsed();
-      for (const e of extensionsUsed) {
-        allExtensions.add(e);
-      }
-
-      const tags = model.getTags();
-      for (const t of tags) {
-        allTags.add(t);
-      }
-
-      const variants = model.getVariants();
-      for (const v of Object.keys(variants)) {
-        allVariants.add(v);
-      }
-
-      if (tags.includes("core") && extensionsUsed.length > 0) {
-        console.log(
-          `Model ${model.getName()} is tagged as 'core' but uses ${extensionsUsed}`
-        );
-      }
-      for (const tag of tags) {
-        if (!knownTags.includes(tag)) {
-          console.log(`Model ${model.getName()} uses unknown tag '${tag}'`);
-        }
-      }
-    }
-    console.log("All extensions:");
-    for (const e of allExtensions) {
-      console.log(e);
-    }
-    console.log("All tags:");
-    for (const t of allTags) {
-      console.log(t);
-    }
-    console.log("All variants:");
-    for (const v of allVariants) {
-      console.log(v);
-    }
   }
 
   /**

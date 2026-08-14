@@ -82,9 +82,6 @@ export class Models {
     }
     const metadataJson = ModelMetadata.readJson(metadataFileName);
 
-    // That preprocessing thingy for the licenses...
-    Models.updateLegacyLicenseStructure(metadataJson);
-
     // Insert default values for optional fields
     if (metadataJson.tags === undefined) {
       metadataJson.tags = [];
@@ -262,99 +259,6 @@ export class Models {
         // The actual license URL has to go up TWO levels,
         // because it refers to the model directory
         legal.licenseUrl = `../../LICENSES/${license}.txt`;
-      }
-    }
-  }
-
-  /**
-   * Do some updates of legacy stuff...
-   *
-   * @param metadataJson - The metadata JSON
-   */
-  private static updateLegacyLicenseStructure(metadataJson: any) {
-    const knownLicenses = Licenses.LICENSE;
-    const legals = metadataJson.legal ?? [];
-
-    const legacyLicenseNames: Record<string, string> = {
-      CC0: "CC0-1.0",
-      "CC-BY": "CC-BY-4.0",
-      "CC-BY-NC": "CC-BY-NC-4.0",
-      "LicenseRef-CC-BY-TM": "CC-BY-4.0",
-      "CC-BY 4.0": "CC-BY-4.0",
-      "CC-BY International 4.0": "CC-BY-4.0",
-      "Public Domain / CC0": "CC0-1.0",
-      "Creative Commons, Attribution-NonCommercial-ShareAlike 4.0 International":
-        "CC-BY-NC-SA-4.0",
-    };
-
-    const customLicenses = [
-      "LicenseRef-LegalMark-UX3D",
-      "LicenseRef-LegalMark-Khronos",
-      "LicenseRef-Poser-EULA",
-      "LicenseRef-LegalMark-Cesium",
-      "LicenseRef-LegalMark-DGG",
-      "SCEA",
-      "LicenseRef-Adobe-Stock",
-      "LicenseRef-CRYENGINE-Agreement",
-      "LicenseRef-3DRT-Testing",
-      "LicenseRef-Stanford-Graphics",
-    ];
-
-    // Update the 'license' property to be the canonical SPDX
-    // license identifier
-    for (const legal of legals) {
-      const license = legal.license;
-
-      // Don't update the known custom licenses
-      if (customLicenses.includes(license)) {
-        //console.log(`License ${license} is a known custom license`);
-        continue;
-      }
-      const knownLicense = knownLicenses[license];
-      if (knownLicense === undefined) {
-        //console.log(`License ${license} is not known`);
-
-        // Check if there is a mapping from the license name to
-        // the canonical one, and update it if this is the case
-        const newLicenseName = legacyLicenseNames[license];
-        if (newLicenseName === undefined) {
-          console.log(
-            `Warning: License ${license} is not known, and no new name found`
-          );
-        } else {
-          const newKnownLicense = knownLicenses[newLicenseName];
-          if (newKnownLicense === undefined) {
-            console.log(
-              `Warning: License ${license} is not known, and no valid new name found`
-            );
-          } else {
-            if (ModelMetadata.verbose) {
-              console.log(
-                `License ${license} is not known, updating to ${newLicenseName}`
-              );
-            }
-            legal.license = newLicenseName;
-          }
-        }
-      }
-    }
-
-    // Update the fields of the legal to be canonical:
-    for (const legal of legals) {
-      const license = legal.license;
-      const knownLicense = knownLicenses[license];
-      if (knownLicense === undefined) {
-        // Don't claim an 'spdx' identifier for licenses
-        // that are not known
-        legal.spdx = undefined;
-      } else {
-        // For known licenses, use the fields from the
-        // known license definition
-        legal.license = knownLicense.spdx;
-        legal.licenseUrl = knownLicense.link;
-        legal.text = knownLicense.text;
-        legal.spdx = knownLicense.spdx;
-        legal.icon = knownLicense.icon;
       }
     }
   }
