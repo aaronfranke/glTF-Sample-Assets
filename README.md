@@ -2,7 +2,7 @@
 <img src="Models/glTF_RGB_June16.svg" height="100">
 </p>
 
-# glTF V2.0 Sample Assets
+# glTF 2.0 Sample Assets
 
 [![glTF Validation](https://github.com/KhronosGroup/glTF-Sample-Assets/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/KhronosGroup/glTF-Sample-Assets/actions/workflows/ci.yml)
 
@@ -25,9 +25,10 @@ Additionally, dedicated lists of assets are generated as markdown files, for bro
 * [Showcase](./Models/Models-showcase.md) (#showcase) for models that are showcased in Khronos publicity. These are usually complex models with high visual quality.
 * [Complete](./Models/Models.md) for a complete list of all models.
 * [Testing](./Models/Models-testing.md) (#testing) for models intended to be used for testing of viewers, converts, and other software systems.
-* [Core Only](./Models/Models-core.md) (#core) for models that only use glTF Core V2.0 features and capabilities (no extensions).
+* [Core Only](./Models/Models-core.md) (#core) for models that only use glTF 2.0 core features and capabilities (no extensions).
 * [Video Tutorials](./Models/Models-video.md) (#video) for models used in any glTF Tutorial video.
 * [Written Tutorials](./Models/Models-written.md) (#written) for models used in a written glTF Tutorial.
+* [PBR tests](./Models/Models-pbrtest.md) (#pbrtest) for models that are illustrating the effect of PBR properties.
 * [Issues](./Models/Models-issues.md) (#issues) for models with one or more issues that need to be resolved.
 
 A summary of the model license is shown in each display, but see the `README.md` in each model's directory for detailed license information.
@@ -44,7 +45,7 @@ Sample glTF 2.0 models are provided in one or more of the following forms of glT
 
 ## Contributing Models
 
-Sample models help the glTF ecosystem, if you are able to contribute a model, see the [contributing section](./SubmittingModels.md).
+Sample models help the glTF ecosystem, if you are able to contribute a model, see the [contributing section](./CONTRIBUTING.md).
 
 ## Model Publishing Services with glTF Download Capability
 
@@ -70,7 +71,7 @@ If you have any questions, submit an [issue](https://github.com/KhronosGroup/glT
 
 ## Obsolete Interface
 
-To make this repository cleaner, the previous _glTF-Sample-Models_ repository was archived [in place](https://github.com/KhronosGroup/glTF-Sample-Models). All V1.0 and _sourceModels_ files were removed from this repository. The major changes to the report are:
+To make this repository cleaner, the previous _glTF-Sample-Models_ repository was archived [in place](https://github.com/KhronosGroup/glTF-Sample-Models). All glTF 1.0 and _sourceModels_ files were removed from this repository. The major changes to the report are:
 
  * The primary branch name was changed to _main_ (from _master).
 * _2.0_ directory was renamed to _Models_
@@ -91,4 +92,4 @@ To make this repository cleaner, the previous _glTF-Sample-Models_ repository wa
 For the assets that remained, there were no changes to the Asset name. READMEs were provided to assist in navigation to any directories that were removed or substantially changed.
 
 ---
-&copy; 2023, The Khronos Group. Licensed as CC-BY 4.0 International
+&copy; 2026, The Khronos Group. Licensed as CC-BY-4.0 International
