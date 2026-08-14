@@ -12,7 +12,7 @@ A simple scene with metal and dielectric spheres that range between 0 and 1 roug
 
 ## Operations
 
-* [Display](https://github.khronos.org/glTF-Sample-Viewer-Release/?model=https://raw.GithubUserContent.com/KhronosGroup/glTF-Sample-Assets/main/./Models/EnvironmentTest/glTF/EnvironmentTest.gltf) in SampleViewer
+* [Display](https://github.khronos.org/glTF-Sample-Viewer-Release/?model=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/./Models/EnvironmentTest/glTF/EnvironmentTest.gltf) in SampleViewer
 * [Model Directory](./)
 
 ## Screenshot
@@ -29,7 +29,7 @@ https://stock.adobe.com/search/3d-assets?filters%5Bcontent_type%3A3d%5D=1&filter
 
 ## Legal
 
-&copy; 2017, Adobe. [Adobe Stock License](https://stock.adobe.com/license-terms?prev_url=detail&comparison-full#enhanced-license-terms)
+&copy; 2017, Adobe. [Adobe Stock License](../../LICENSES/LicenseRef-Adobe-Stock.txt)
 
  - Adobe for Everything
 
