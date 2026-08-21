@@ -23,6 +23,7 @@ A cube with non-smoothed faces.
 
 A cube with non-smoothed faces.
 
+
 ## Legal
 
 &copy; 2017, UX3D. [Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode)

@@ -24,6 +24,7 @@ Animations. Skins.
 
 Articulated robot with animation and hierarchy.
 
+
 ## Legal
 
 &copy; 2017, Smith Micro Software, Inc.. [Poser EULA](../../LICENSES/LicenseRef-Poser-EULA.txt)

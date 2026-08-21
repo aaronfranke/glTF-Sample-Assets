@@ -52,7 +52,6 @@ The bottom middle quad tests the scale parameter with UV coordinates of `(0.0, 0
 The bottom right quad tests offset, rotation, and scale at the same time. If everything is supported correctly, the arrow should point to the green marker.
 
 
-
 ## Legal
 
 &copy; 2018, Microsoft. [Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode)

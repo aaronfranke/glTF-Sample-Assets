@@ -24,6 +24,7 @@ Box with a power-of-2 texture. [Issues: non-Khronos mark]
 
 Box with a power-of-2 texture, using the Cesium logo.
 
+
 ## Legal
 
 &copy; 2017, Cesium. [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode)
