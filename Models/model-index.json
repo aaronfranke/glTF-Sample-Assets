@@ -1301,6 +1301,18 @@
     }
   },
   {
+    "label": "NodeVisibilityTest",
+    "name": "NodeVisibilityTest",
+    "screenshot": "screenshot/screenshot.png",
+    "tags": [
+      "testing"
+    ],
+    "variants": {
+      "glTF": "NodeVisibilityTest.gltf",
+      "glTF-Binary": "NodeVisibilityTest.glb"
+    }
+  },
+  {
     "label": "Normal-Tangent Mirror Test",
     "name": "NormalTangentMirrorTest",
     "screenshot": "screenshot/screenshot.png",

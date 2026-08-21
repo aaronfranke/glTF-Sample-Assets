@@ -583,6 +583,12 @@ SPDX-FileCopyrightText = "2024 Public"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
+path = "Models/NodeVisibilityTest/*"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 Public"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
 path = "Models/NormalTangentMirrorTest/*"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2018 Analytical Graphics, Inc."
