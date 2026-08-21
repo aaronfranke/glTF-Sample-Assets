@@ -3,14 +3,10 @@
     "legal": [
         {
             "license": "CC0-1.0",
-            "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
-            "artist": "Marco Hutter (https://github.com/javagl/)",
             "year": "2017",
-            "owner": "Public",
+            "artist": "Marco Hutter (https://github.com/javagl/)",
             "what": "Everything",
-            "text": "CC0 1.0 Universal",
-            "spdx": "CC0-1.0",
-            "icon": "https://licensebuttons.net/p/zero/1.0/88x31.png"
+            "owner": "Public"
         }
     ],
     "tags": [
