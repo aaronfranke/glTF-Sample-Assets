@@ -56,7 +56,7 @@ When a viewer supports the extension, but does not follow the rule from the spec
 
 ## Legal
 
-&copy; 2025, Public. [undefined]()
+&copy; 2025, Public. [Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 
  - Marco Hutter (https://github.com/javagl/) for Everything
 
