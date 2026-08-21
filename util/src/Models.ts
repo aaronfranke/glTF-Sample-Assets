@@ -231,8 +231,15 @@ export class Models {
   }
 
   /**
-   * Validate the given legal object, checking for the consistency
-   * of custom licenses and their required license file
+   * Validate the given legal object.
+   *
+   * For known licenses (i.e. SPDX licenses that are listed in the
+   * data/licenses.json), this will fill out the 'spdx', 'licenseUrl',
+   * 'text' and 'icon' fields of the given object based on the
+   * canonical information from the 'licenses.json' file.
+   *
+   * For custom licenses, this will check for the consistency of the
+   * license name and the required license file.
    *
    * @param modelPath - The path that contains the model, e.g.
    * "./Models/AnimatedTriangle".
@@ -244,12 +251,21 @@ export class Models {
     const knownLicenses = Licenses.LICENSE;
     const license = legal.license;
     const knownLicense = knownLicenses[license];
-    if (knownLicense === undefined) {
+
+    if (knownLicense) {
+      // For known (SPDX) licenses, fill out the canonical fields
+      legal.spdx = license;
+      legal.icon = knownLicense.icon;
+      legal.text = knownLicense.text;
+      legal.licenseUrl = knownLicense.link;
+    } else {
+      // For custom license files, check for the presence of the 'text'
+      // (which is used as the link text)
       if (legal.text === undefined) {
         errors.push(`License ${license} is not known - the 'text' is required`);
       }
 
-      // Check for the presence of the license file
+      // Check for the presence of the custom license file
       const expectedLicenseFile = `./LICENSES/${license}.txt`;
       if (!fs.existsSync(expectedLicenseFile)) {
         errors.push(
