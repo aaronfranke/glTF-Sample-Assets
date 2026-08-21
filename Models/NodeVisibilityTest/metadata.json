@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "legal": [
+        {
+            "license": "CC0-1.0",
+            "year": "2025",
+            "artist": "Marco Hutter (https://github.com/javagl/)",
+            "what": "Everything",
+            "owner": "Public"
+        }
+    ],
+    "tags": [
+        "testing"
+    ],
+    "screenshot": "screenshot/screenshot.png",
+    "name": "NodeVisibilityTest",
+    "path": "./Models/NodeVisibilityTest",
+    "summary": "A test for the KHR_node_visibility extension",
+    "createReadme": true
+}
